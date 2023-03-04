@@ -1,27 +1,34 @@
-from playwright.sync_api import Playwright, sync_playwright
-import pathlib
-import logging
-import typer
-import time
 import calendar
-import pandas as pd
+import logging
+import pathlib
+import time
 import zipfile
+
+import pandas as pd
+import typer
+from playwright.sync_api import Playwright, sync_playwright
 
 BTS_URL = "https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr"
 
-logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
+logging.basicConfig(format="%(asctime)s - %(message)s", level=logging.INFO)
 
 app = typer.Typer()
 
+
 @app.command()
-def download(start_date: str, end_date: str, download_folder: str = 'bts-data', headless: bool = True):
+def download(
+    start_date: str,
+    end_date: str,
+    download_folder: str = "bts-data",
+    headless: bool = True,
+):
     """
     Download Airline On-Time Performance data from the Bureau of Transportation Statistics
     (https://www.transtats.bts.gov/) between START_DATE and END_DATE. Use YYYY-MM as date format.
     Choose --headless to run browser in headless mode.
 
     """
-    dates = [(d.year, d.month) for d in pd.date_range(start_date, end_date, freq='MS')]
+    dates = [(d.year, d.month) for d in pd.date_range(start_date, end_date, freq="MS")]
 
     path = pathlib.Path(download_folder)
     path.mkdir(parents=True, exist_ok=True)
@@ -30,10 +37,12 @@ def download(start_date: str, end_date: str, download_folder: str = 'bts-data', 
         get_data(playwright, path, dates, headless)
 
 
-def get_data(playwright: Playwright, path: pathlib.Path, dates: list, headless: bool) -> None:
- 
+def get_data(
+    playwright: Playwright, path: pathlib.Path, dates: list, headless: bool
+) -> None:
+
     # launch browser context
-    logging.info(f'Launching browser context with headless={headless}')
+    logging.info(f"Launching browser context with headless={headless}")
     browser = playwright.chromium.launch(headless=headless, downloads_path=str(path))
     context = browser.new_context()
     page = context.new_page()
@@ -146,31 +155,31 @@ def get_data(playwright: Playwright, path: pathlib.Path, dates: list, headless: 
 
     # choose year and month and download
     for year, month in dates:
-        logging.info(f'Retrieving data for {year}-{month}')
+        logging.info(f"Retrieving data for {year}-{month}")
         file_name = f"bts_airline_ontime_performance_{calendar.month_name[month].lower()}_{year}.zip"
         file_path = path.joinpath(file_name)
         if file_path.exists():
-            logging.info(f'... {file_name} exists, skipping download')
+            logging.info(f"... {file_name} exists, skipping download")
             continue
-        
+
         page.locator("#cboYear").select_option(str(year))
         page.locator("#cboPeriod").select_option(str(month))
 
-        logging.info(f'... initiating download request for {year}-{month}')
-        with page.expect_download(timeout=1000*60*20) as download_info:
-            page.get_by_role("button", name="Download").click(timeout=1000*60*20)
+        logging.info(f"... initiating download request for {year}-{month}")
+        with page.expect_download(timeout=1000 * 60 * 20) as download_info:
+            page.get_by_role("button", name="Download").click(timeout=1000 * 60 * 20)
 
         download = download_info.value
-        logging.info(f'... saving data to temporary file: {download.path()}')
+        logging.info(f"... saving data to temporary file: {download.path()}")
         download.save_as(str(file_path))
-        logging.info(f'... download complete, saved as: {file_name}')
+        logging.info(f"... download complete, saved as: {file_name}")
 
     time.sleep(60)  # wait for download to complete before closing browser
-    
+
     # ---------------------
     context.close()
     browser.close()
-    logging.info(f'Closing browser context')
+    logging.info(f"Closing browser context")
 
 
 @app.command()
@@ -178,13 +187,13 @@ def extract(download_folder: str):
     """
     Extract csv's from downloaded zipped data files
     """
-    logging.info(f"Extracting csv's from zip files in {download_folder}:") 
-    for file_name in pathlib.Path(download_folder).glob('*.zip'):
+    logging.info(f"Extracting csv's from zip files in {download_folder}:")
+    for file_name in pathlib.Path(download_folder).glob("*.zip"):
         archive = zipfile.ZipFile(file_name, mode="r")
         csv_file = archive.infolist()[0]
-        csv_file.filename = str(file_name.with_suffix('.csv'))
+        csv_file.filename = str(file_name.with_suffix(".csv"))
         archive.extract(csv_file)
-        logging.info(f'... extracted {csv_file.filename}')
+        logging.info(f"... extracted {csv_file.filename}")
 
 
 if __name__ == "__main__":
