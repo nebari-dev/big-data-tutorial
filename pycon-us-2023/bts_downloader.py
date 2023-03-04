@@ -7,7 +7,7 @@ import calendar
 def run(playwright: Playwright, start_year=2021, end_year=2022) -> None:
     
     # make a date stamped folder for storing the downloads
-    downloads_path = pathlib.Path.home() / "Downloads" / f"bts_{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
+    downloads_path = pathlib.Path.home() / "Downloads" / "bts-data" #/ f"bts_{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}"
     downloads_path.mkdir(parents=True, exist_ok=True)
 
     # launch browser context
@@ -122,18 +122,25 @@ def run(playwright: Playwright, start_year=2021, end_year=2022) -> None:
     page.get_by_label("Div5TailNum").check()
 
     # choose year and month and download
-    year = 2020
-    month = 5
-    page.locator("#cboYear").select_option(str(year))
-    page.locator("#cboPeriod").select_option(str(month))
+    for year in range(end_year, start_year-1, -1):
+        for month in range(12, 0, -1):
+            file_name = f"bts_airline_ontime_performance_{calendar.month_name[month].lower()}_{year}.zip"
+            file_path = downloads_path.joinpath(file_name)
+            if file_path.exists():
+                print(f'{file_name} exists, skipping download')
+                continue
+            
+            page.locator("#cboYear").select_option(str(year))
+            page.locator("#cboPeriod").select_option(str(month))
 
-    with page.expect_download(timeout=1000*60*20) as download_info:
-        page.get_by_role("button", name="Download").click(timeout=1000*60*20)
+            print(f'starting download for {year}-{month}')
+            with page.expect_download(timeout=1000*60*20) as download_info:
+                page.get_by_role("button", name="Download").click(timeout=1000*60*20)
     
-    download = download_info.value
-    print(download.path())
-    file_name = f"bts_airline_ontime_performance_{calendar.month_name[month].lower()}_{year}.zip"
-    download.save_as(str(downloads_path.joinpath(file_name)))
+            download = download_info.value
+            print(download.path())
+            download.save_as(str(file_path))
+    
     time.sleep(60)  # arbitrary amount of time to wait for download to complete before closing browser
     
     # ---------------------
