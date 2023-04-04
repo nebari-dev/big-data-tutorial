@@ -13,5 +13,6 @@ dependencies:
 - typer
 - nebari-dask
 - s3fs
+- gcsfs
 description: 'Environment for the Data of an Unusual Size tutorial at PyCon US 2023'
 name: pycon2023
