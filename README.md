@@ -8,3 +8,4 @@ and is under [BSD 3-Clause license](https://github.com/nebari-dev/nebari/blob/de
 ## Table of contents
 
 * [Data of an Unusual Size: A practical guide to analysis and interactive visualization of massive datasets](./pycon-us-2023/data-of-an-unusual-size-tutorial/README.md), tutorial presented at PyCon US 2023.
+* [Community-first open source: An action plan](./pycon-us-2023/community-first-oss/slides.pdf), talk presented at PyCon US 2023 - Maintainer Summit. [Recording available on YouTube](https://youtu.be/yUrj6z8eGAo).
