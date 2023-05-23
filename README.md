@@ -32,7 +32,9 @@ TODO
 ## Live presentations
 
 * SciPy US 2023 (Upcoming!)
-* PyCon US 2023
+* [PyCon US 2023](https://us.pycon.org/2023/schedule/presentation/64/)
+
+You can check out the [tags](todo) for previous versions of this tutorial.
 
 ---
 
