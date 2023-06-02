@@ -18,16 +18,16 @@ By the end, you will be able to answer:
 
 The tutorial focuses on the reasoning, intuition, and best practices around big data workflows, while covering the practical details of Python libraries like Dask and hvPlot that are great at handling large data. It includes plenty of exercises to help you build a foundational understanding within three hours.
 
+<!-- TODO: Update and uncomment
+
 ## Repository structure
 
 ### Tutorial structure
 
-TODO
-
 ### Supporting resources
 
 * /images
-* /prep
+* /prep -->
 
 ## Live presentations
 
