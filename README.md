@@ -32,7 +32,7 @@ The tutorial focuses on the reasoning, intuition, and best practices around big 
 
 You can use Nebari (JupterHub) hosted at [scipy.quansight.dev](https://http://scipy.quansight.dev/) to follow along with this tutorial.
 
-Follow [this participant's guide](https://docs.google.com/document/d/1vnWhNyUBRpILb2MAHQfTmZQY3pCIaCmroV9ke49nQlE/edit) to register and sign-in to Nebari, and use the following link to clone the tutorial materials:
+Follow [this participant's guide](https://docs.google.com/document/d/1vnWhNyUBRpILb2MAHQfTmZQY3pCIaCmroV9ke49nQlE/edit) to register & sign-in, select the **Medium Instance** in the Server Options, and use the following link to clone the tutorial materials:
 
 ```bash
 https://github.com/nebari-dev/big-data-tutorial.git
