@@ -1,24 +1,23 @@
 # This YAML file is for creating an environment using conda-store (https://conda.store/),
 # an environment management tool integrated in Nebari.
 
-name: nebari-big-data-tutorial
-description: 'Environment for the Data of an Unusual Size tutorial'
 channels:
   - conda-forge
   - microsoft
 dependencies:
   - python=3.10
-  - pandas<2.0
+  - pandas
   - ipykernel
-  - ipywidgets==7.7.1
-  - cdsdashboards-singleuser
+  - ipywidgets
   - panel
   - hvplot
   - geoviews
   - pyarrow
-  - dask=2023.3.2
-  - dask-gateway=2022.10.0
-  - distributed=2023.3.2
+  - nebari-dask
   - gcsfs
   - python-graphviz
   - ipycytoscape
+  - jhsingle-native-proxy
+  - bokeh-root-cmd
+  - nbconvert
+  name: data-of-unusual-size
