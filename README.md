@@ -6,15 +6,11 @@ In this hands-on tutorial, you will learn the fundamentals of analyzing massive 
 
 You can use Nebari (JupterHub) hosted at [scipy.quansight.dev](https://http://scipy.quansight.dev/) to follow along with this tutorial.
 
-Follow [this participant's guide](https://docs.google.com/document/d/11YWMZKW6Y4tXnMs3Jekc1S7BQWTR6THZazDaq3WoNxw/edit?usp=sharing) to register & sign-in, select the **Medium Instance** in the Server Options, and use the following link to clone the tutorial materials:
+Follow [this participant's guide](https://docs.google.com/document/d/11YWMZKW6Y4tXnMs3Jekc1S7BQWTR6THZazDaq3WoNxw/edit?usp=sharing) to register & sign-in ([re-register](https://docs.google.com/document/d/11YWMZKW6Y4tXnMs3Jekc1S7BQWTR6THZazDaq3WoNxw/edit#heading=h.hnkrvwc31uri) if you used for a different tutorial), select the **Medium Instance** in the Server Options, and click on the "Data of an Unusual Size" card in the JupyterLab launcher to clone the materials.
 
-```bash
-https://github.com/nebari-dev/big-data-tutorial.git
-```
+In the `tutorials/big-data-tutorial` folder that's created with all material, navigate to `00-introduction.ipynb`.
 
-In the `big-data-tutorial` folder that's created with all material, navigate to `00-introduction.ipynb`.
-
-The environment for this tutorial is `scipy/scipy-data-of-unusual-size`, and it is automatically selected for you. :)
+The environment for this tutorial is `scipy-scipy-data-of-unusual-size`, and it is automatically selected for you. :)
 
 
 ## Live presentations
