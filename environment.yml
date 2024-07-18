@@ -20,4 +20,4 @@ dependencies:
   - jhsingle-native-proxy
   - bokeh-root-cmd
   - nbconvert
-  name: data-of-unusual-size
+name: data-of-unusual-size
